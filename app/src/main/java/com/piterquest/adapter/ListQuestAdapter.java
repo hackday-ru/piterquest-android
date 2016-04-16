@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.piterquest.R;
 import com.piterquest.data.Quest;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 

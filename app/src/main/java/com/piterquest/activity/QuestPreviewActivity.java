@@ -3,6 +3,7 @@ package com.piterquest.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,10 +20,10 @@ public class QuestPreviewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Quest quest = intent.getParcelableExtra(DataTransition.QUEST);
 
-        makeGUI(quest);
+        prepareActivity(quest);
     }
 
-    private void makeGUI(Quest quest) {
+    private void prepareActivity(Quest quest) {
 
         setTitle(quest.getInfo().getName());
 
@@ -34,6 +35,8 @@ public class QuestPreviewActivity extends AppCompatActivity {
         String description = quest.getInfo().getDescription();
         descriptionQuestView.setText(description);
         imageQuestionView.setImageResource(R.drawable.placeholder);
+
+        Button button = new Button(this);
     }
 
 }
