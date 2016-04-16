@@ -1,6 +1,9 @@
 package com.piterquest.data;
 
-public class QuestPoint {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class QuestPoint implements Parcelable {
 
     public QuestPoint(String hintText, String gps, String hintImage,
                       boolean hasGpsHint, String taskText, String taskImage,
@@ -21,6 +24,28 @@ public class QuestPoint {
     private String taskText;
     private String taskImage;
     private String solution;
+
+    protected QuestPoint(Parcel in) {
+        hintText = in.readString();
+        hintImage = in.readString();
+        gps = in.readString();
+        hasGpsHint = in.readByte() != 0;
+        taskText = in.readString();
+        taskImage = in.readString();
+        solution = in.readString();
+    }
+
+    public static final Creator<QuestPoint> CREATOR = new Creator<QuestPoint>() {
+        @Override
+        public QuestPoint createFromParcel(Parcel in) {
+            return new QuestPoint(in);
+        }
+
+        @Override
+        public QuestPoint[] newArray(int size) {
+            return new QuestPoint[size];
+        }
+    };
 
     public String getHintText() {
         return hintText;
@@ -76,5 +101,21 @@ public class QuestPoint {
 
     public void setSolution(String solution) {
         this.solution = solution;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(hintText);
+        dest.writeString(hintImage);
+        dest.writeString(gps);
+        dest.writeByte((byte) (hasGpsHint ? 1 : 0));
+        dest.writeString(taskText);
+        dest.writeString(taskImage);
+        dest.writeString(solution);
     }
 }
