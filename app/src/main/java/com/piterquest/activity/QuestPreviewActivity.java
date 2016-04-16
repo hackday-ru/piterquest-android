@@ -41,7 +41,7 @@ public class QuestPreviewActivity extends AppCompatActivity {
         assert button != null;
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(QuestPreviewActivity.this, PointSearchActivity.class);
+                Intent intent = new Intent(QuestPreviewActivity.this, TaskActivity.class);
                 intent.putExtra(DataTransition.QUEST, quest);
                 startActivity(intent);
             }

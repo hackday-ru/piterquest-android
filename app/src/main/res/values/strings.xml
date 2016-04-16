@@ -16,4 +16,9 @@
     <string name="to_menu">Back to menu</string>
     <string name="crown">crown</string>
     <string name="error_permission_map">Error permission map</string>
+    <string name="quest_image">quest image</string>
+    <string name="am_i_there_yet">Am I there yet?</string>
+    <string name="open_map">Open map</string>
+    <string name="not_there_yet">You are not there yet!</string>
+    <string name="wrong_answer">Oops, try again</string>
 </resources>

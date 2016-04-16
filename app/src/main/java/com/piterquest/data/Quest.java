@@ -3,19 +3,23 @@ package com.piterquest.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Quest implements Parcelable {
 
     private QuestInfo info;
-    private QuestPoint points;
+    private List<QuestPoint> points;
 
-    public Quest(QuestInfo info, QuestPoint points) {
+    public Quest(QuestInfo info, List<QuestPoint> points) {
         this.info = info;
         this.points = points;
     }
 
     protected Quest(Parcel in) {
         info = in.readParcelable(QuestInfo.class.getClassLoader());
-        points = in.readParcelable(QuestPoint.class.getClassLoader());
+        points = new ArrayList<>();
+        in.readList(points, QuestPoint.class.getClassLoader());
     }
 
     public static final Creator<Quest> CREATOR = new Creator<Quest>() {
@@ -38,11 +42,11 @@ public class Quest implements Parcelable {
         this.info = info;
     }
 
-    public QuestPoint getPoints() {
+    public List<QuestPoint> getPoints() {
         return points;
     }
 
-    public void setPoints(QuestPoint points) {
+    public void setPoints(List<QuestPoint> points) {
         this.points = points;
     }
 
@@ -54,6 +58,6 @@ public class Quest implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(info, flags);
-        dest.writeParcelable(points, flags);
+        dest.writeList(points);
     }
 }
