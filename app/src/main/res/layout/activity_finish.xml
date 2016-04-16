@@ -48,7 +48,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
-        android:text="'HERE LIES QUEST NAME'"
         android:textColor="?attr/colorPrimaryDark"
         android:textSize="26sp" />
 
@@ -67,9 +66,11 @@
         android:id="@+id/button_tomenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/textview_finish_awesome"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="backToQuestList"
         android:text="@string/to_menu" />
 
 </RelativeLayout>

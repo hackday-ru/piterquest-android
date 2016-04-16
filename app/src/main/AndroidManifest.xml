@@ -2,17 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.piterquest">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ListQuestActivity">
+        <activity
+            android:name=".activity.ListQuestActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,15 +29,15 @@
             android:parentActivityName=".activity.ListQuestActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.ListQuestActivity"/>
+                android:value=".activity.ListQuestActivity" />
         </activity>
         <activity
             android:name=".activity.PointSearchActivity"
-            android:label="@string/find_next_point">
-        </activity>
+            android:label="@string/find_next_point"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBLqMaGlTJD6lG4FqmgRppBndP1cJ7IR9I"/>
+            android:value="AIzaSyBLqMaGlTJD6lG4FqmgRppBndP1cJ7IR9I" />
     </application>
 
 </manifest>
