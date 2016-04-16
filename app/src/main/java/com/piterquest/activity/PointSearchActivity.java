@@ -44,6 +44,16 @@ public class PointSearchActivity extends AppCompatActivity {
             tvHint.setText(questPoint.getHintText());
         }
         Picasso.with(PointSearchActivity.this).load(questPoint.getHintImage()).into(imgHint);
+
+        final Button button = (Button) findViewById(R.id.button_see_map);
+        assert button != null;
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(PointSearchActivity.this, MapActivity.class);
+                intent.putExtra(DataTransition.QUEST_POINT, questPoint);
+                startActivity(intent);
+            }
+        });
     }
 
     /**

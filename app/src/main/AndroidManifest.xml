@@ -36,7 +36,13 @@
         <activity
             android:name=".activity.PointSearchActivity">
         </activity>
-        <activity android:name=".activity.MapActivity">
+        <activity
+            android:name=".activity.MapActivity"
+            android:parentActivityName=".activity.PointSearchActivity">
+            <meta-data
+                android:name=".android.support.PARENT_ACTIVITY"
+                android:value=".activity.PointSearchActivity" />
+
         </activity>
 
         <meta-data
