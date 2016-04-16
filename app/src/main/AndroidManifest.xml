@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListQuest">
+        <activity android:name=".activity.ListQuestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
