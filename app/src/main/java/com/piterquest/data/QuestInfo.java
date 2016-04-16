@@ -1,6 +1,9 @@
 package com.piterquest.data;
 
-public class QuestInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class QuestInfo implements Parcelable{
 
     private int id;
     private String name;
@@ -13,6 +16,25 @@ public class QuestInfo {
         this.description = description;
         this.image = image;
     }
+
+    protected QuestInfo(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        image = in.readString();
+    }
+
+    public static final Creator<QuestInfo> CREATOR = new Creator<QuestInfo>() {
+        @Override
+        public QuestInfo createFromParcel(Parcel in) {
+            return new QuestInfo(in);
+        }
+
+        @Override
+        public QuestInfo[] newArray(int size) {
+            return new QuestInfo[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -44,5 +66,18 @@ public class QuestInfo {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeString(image);
     }
 }
