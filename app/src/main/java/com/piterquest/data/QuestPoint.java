@@ -1,24 +1,25 @@
 package com.piterquest.data;
 
 public class QuestPoint {
-    public QuestPoint(String hintText, String gps, String hintImageUrl,
-                      boolean hasGpsHint, String taskText, String taskImageUrl,
+
+    public QuestPoint(String hintText, String gps, String hintImage,
+                      boolean hasGpsHint, String taskText, String taskImage,
                       String solution) {
         this.hintText = hintText;
         this.gps = gps;
-        this.hintImageUrl = hintImageUrl;
+        this.hintImage = hintImage;
         this.hasGpsHint = hasGpsHint;
         this.taskText = taskText;
-        this.taskImageUrl = taskImageUrl;
+        this.taskImage = taskImage;
         this.solution = solution;
     }
 
     private String hintText;
-    private String hintImageUrl;
+    private String hintImage;
     private String gps;
     private boolean hasGpsHint;
     private String taskText;
-    private String taskImageUrl;
+    private String taskImage;
     private String solution;
 
     public String getHintText() {
@@ -29,12 +30,12 @@ public class QuestPoint {
         this.hintText = hintText;
     }
 
-    public String getHintImageUrl() {
-        return hintImageUrl;
+    public String getHintImage() {
+        return hintImage;
     }
 
-    public void setHintImageUrl(String hintImageUrl) {
-        this.hintImageUrl = hintImageUrl;
+    public void setHintImage(String hintImage) {
+        this.hintImage = hintImage;
     }
 
     public String getGps() {
@@ -61,12 +62,12 @@ public class QuestPoint {
         this.taskText = taskText;
     }
 
-    public String getTaskImageUrl() {
-        return taskImageUrl;
+    public String getTaskImage() {
+        return taskImage;
     }
 
-    public void setTaskImageUrl(String taskImageUrl) {
-        this.taskImageUrl = taskImageUrl;
+    public void setTaskImage(String taskImage) {
+        this.taskImage = taskImage;
     }
 
     public String getSolution() {
