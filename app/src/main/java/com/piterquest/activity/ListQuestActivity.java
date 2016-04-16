@@ -25,10 +25,7 @@ public class ListQuestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_quest);
 
         final ListView questListView = (ListView) findViewById(R.id.quest_list);
-        QuestInfo questInfo1 = new QuestInfo(1, "Quest 1", "QQQ", "");
-        ArrayList<QuestPoint> list = new ArrayList<QuestPoint>();
-        list.add(new QuestPoint("QQ", "Qq","QQ", true, "q", "qQ", "q"));
-        final Quest quest1 = new Quest(questInfo1, list);
+        final Quest quest1 = getSampleQuest();
         ArrayList<Quest> quests = new ArrayList<Quest>();
         quests.add(quest1);
         quests.add(quest1);
@@ -41,16 +38,48 @@ public class ListQuestActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Quest quest = (Quest) questListView.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Quest : " + quest + " was selected",
-                        Toast.LENGTH_LONG)
-                        .show();
                 questSelected(quest);
             }
         });
     }
+
     private void questSelected(Quest quest) {
         Intent detailIntent = new Intent(getApplicationContext(), QuestPreviewActivity.class);
         detailIntent.putExtra(DataTransition.QUEST, quest);
         startActivity(detailIntent);
+    }
+
+    /**
+     * Provides sample quest for testing purposes.
+     *
+     * @return A sample quest.
+     */
+    private Quest getSampleQuest() {
+        QuestInfo qInfo = new QuestInfo(
+                1,
+                "Sample Quest",
+                "Description of the sample quest. It's gotta be awesome.",
+                null
+        );
+        ArrayList<QuestPoint> qList = new ArrayList<>();
+        qList.add(new QuestPoint(
+                "Psst, first point is somewhere near you.",
+                "No, u get no coors.",
+                "https://pixabay.com/static/uploads/photo/2013/11/15/21/41/peter-211139_960_720.jpg",
+                false,
+                "What is the best city on Earth?",
+                null,
+                "Piter"
+        ));
+        qList.add(new QuestPoint(
+                "A second point.",
+                "Nope, no coors.",
+                null,
+                false,
+                "What is first letter of alphabet?",
+                "https://pixabay.com/static/uploads/photo/2013/11/15/21/45/bridge-211168_960_720.jpg",
+                "A"
+        ));
+        return new Quest(qInfo, qList);
     }
 }

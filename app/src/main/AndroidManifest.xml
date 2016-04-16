@@ -29,7 +29,8 @@
                 android:value=".activity.ListQuestActivity"/>
         </activity>
         <activity
-            android:name=".activity.PointSearchActivity">
+            android:name=".activity.PointSearchActivity"
+            android:label="@string/find_next_point">
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"

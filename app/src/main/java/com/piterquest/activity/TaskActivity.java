@@ -1,6 +1,7 @@
 package com.piterquest.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,6 @@ import com.piterquest.data.QuestPoint;
 import com.squareup.picasso.Picasso;
 
 public class TaskActivity extends AppCompatActivity {
-    private TextView tvTaskNumber;
     private TextView tvTaskContent;
     private ImageView imgTaskImage;
     private EditText etAnswer;
@@ -32,7 +32,6 @@ public class TaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task);
 
         // assigning controls
-        tvTaskNumber = (TextView) findViewById(R.id.textview_task_number);
         tvTaskContent = (TextView) findViewById(R.id.textview_task_content);
         imgTaskImage = (ImageView) findViewById(R.id.image_task);
         etAnswer = (EditText) findViewById(R.id.edittext_answer);
@@ -52,14 +51,13 @@ public class TaskActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n") // suppresses useless warning about concatenation in setText
     private void refillActivity() {
         // setting activity header
-        String title = quest.getInfo().getName() + " (" + curPosition + "/" + pointsCount + ")";
+        String title = getString(R.string.task_number) + " " + (curPosition + 1) + "/" + pointsCount;
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(title);
         }
         // setting "inner" contents
         QuestPoint curPoint = quest.getPoints().get(curPosition);
-        tvTaskNumber.setText(getString(R.string.task_number) + curPosition);
         tvTaskContent.setText(curPoint.getTaskText());
         Picasso.with(TaskActivity.this).load(curPoint.getTaskImage()).into(imgTaskImage);
         etAnswer.setText("");
@@ -72,8 +70,6 @@ public class TaskActivity extends AppCompatActivity {
     private void startPointSearching() {
         Intent intent = new Intent(TaskActivity.this, PointSearchActivity.class);
         intent.putExtra(DataTransition.QUEST_POINT, quest.getPoints().get(curPosition));
-        intent.putExtra(DataTransition.CURRENT_POINT_INDEX, curPosition);
-        intent.putExtra(DataTransition.POINTS_COUNT, pointsCount);
         startActivityForResult(intent, DataTransition.REQUEST_CODE_HINT);
     }
 
@@ -86,7 +82,7 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == DataTransition.REQUEST_CODE_HINT && resultCode == DataTransition.FOUND_POINT) {
+        if (requestCode == DataTransition.REQUEST_CODE_HINT && resultCode == Activity.RESULT_OK) {
             // player found the next point; should show task
             refillActivity();
         }

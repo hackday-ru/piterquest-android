@@ -11,49 +11,46 @@
     tools:context="com.piterquest.activity.PointSearchActivity">
 
     <TextView
-        android:id="@+id/textview_point_title"
-        android:layout_width="wrap_content"
+        android:id="@+id/textview_point_hint"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
-        android:text="@string/find_next_point"
-        android:textColor="@color/black"
-        android:textSize="32sp" />
-
-    <TextView
-        android:id="@+id/textview_point_hint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_point_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
         android:ellipsize="none"
         android:scrollHorizontally="false"
-        android:text="SAMPLE TEXT TO SEE HOW IT LOOKS"
         android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/button_check_location"
+        android:layout_width="@dimen/wide_button_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/small_margin"
+        android:onClick="checkLocation"
+        android:text="@string/am_i_there_yet"
+        android:theme="@style/StartButton" />
+
+    <Button
+        android:id="@+id/button_see_map"
+        android:layout_width="@dimen/wide_button_width"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_check_location"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/small_margin"
+        android:text="@string/open_map"
+        android:theme="@style/StartButton" />
 
     <ImageView
         android:id="@+id/image_point_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/button_see_map"
         android:layout_below="@id/textview_point_hint"
+        android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/standard_margin"
         android:contentDescription="@string/hint_image"
-        android:layout_centerHorizontal="true"
-        android:scaleType="center"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/standard_margin"
-        android:clickable="true"
-        android:src="@drawable/ic_map_black_24dp"
-        app:elevation="4dp" />
+        android:scaleType="center" />
 </RelativeLayout>

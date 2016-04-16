@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.piterquest.activity.QuestPreviewActivity">
 
     <ImageView
         android:id="@+id/big_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/big_image_height"
-        android:layout_gravity="center"
         android:layout_alignParentTop="true"
+        android:layout_gravity="center"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/quest_image"
         android:scaleType="centerCrop"
-        android:src="@drawable/placeholder"
-        android:contentDescription="@string/quest_image" />
+        android:src="@drawable/placeholder" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +42,7 @@
 
     <Button
         android:id="@+id/start_button"
-        android:layout_width="170dp"
+        android:layout_width="@dimen/wide_button_width"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

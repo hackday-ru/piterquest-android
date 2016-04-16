@@ -12,4 +12,6 @@
     <dimen name="image_height">40dp</dimen>
 
     <dimen name="big_image_height">250dp</dimen>
+    <dimen name="wide_button_width">170dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
 </resources>
