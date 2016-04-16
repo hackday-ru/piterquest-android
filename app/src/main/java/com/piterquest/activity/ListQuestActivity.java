@@ -26,8 +26,9 @@ public class ListQuestActivity extends AppCompatActivity {
 
         final ListView questListView = (ListView) findViewById(R.id.quest_list);
         QuestInfo questInfo1 = new QuestInfo(1, "Quest 1", "QQQ", "");
-        QuestPoint questPoint1 = new QuestPoint("QQ", "Qq","QQ", true, "q", "qQ", "q");
-        final Quest quest1 = new Quest(questInfo1,questPoint1);
+        ArrayList<QuestPoint> list = new ArrayList<QuestPoint>();
+        list.add(new QuestPoint("QQ", "Qq","QQ", true, "q", "qQ", "q"));
+        final Quest quest1 = new Quest(questInfo1, list);
         ArrayList<Quest> quests = new ArrayList<Quest>();
         quests.add(quest1);
         quests.add(quest1);

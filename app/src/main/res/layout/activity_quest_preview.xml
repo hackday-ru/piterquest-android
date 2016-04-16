@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/big_image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/big_image_height"
-        android:adjustViewBounds="true"
         android:layout_gravity="center"
+        android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/placeholder"/>
+        android:src="@drawable/placeholder" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,17 +30,18 @@
                 android:layout_marginTop="16dp"
                 android:gravity="fill"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/main_text_size"/>
+                android:textSize="@dimen/main_text_size" />
 
         </LinearLayout>
     </ScrollView>
+
     <Button
-        android:layout_marginTop="@dimen/margin_top_start_button"
         android:id="@+id/start_button"
-        android:layout_gravity="center"
-        android:textColor="@color/colorText"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_top_start_button"
         android:text="@string/start_button_text"
-        android:theme="@style/StartButton"/>
+        android:textColor="@color/colorText"
+        android:theme="@style/StartButton" />
 </LinearLayout>

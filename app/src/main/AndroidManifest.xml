@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TaskActivity" />
-        <activity android:name=".activity.FinishActivity"></activity>
+        <activity android:name=".activity.FinishActivity" />
         <activity
             android:name=".activity.QuestPreviewActivity"
             android:parentActivityName=".activity.ListQuestActivity">
