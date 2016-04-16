@@ -3,6 +3,7 @@ package com.piterquest.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class QuestPreviewActivity extends AppCompatActivity {
         prepareActivity(quest);
     }
 
-    private void prepareActivity(Quest quest) {
+    private void prepareActivity(final Quest quest) {
 
         setTitle(quest.getInfo().getName());
 
@@ -36,7 +37,15 @@ public class QuestPreviewActivity extends AppCompatActivity {
         descriptionQuestView.setText(description);
         imageQuestionView.setImageResource(R.drawable.placeholder);
 
-        Button button = new Button(this);
+        final Button button = (Button) findViewById(R.id.start_button);
+        assert button != null;
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(QuestPreviewActivity.this, PointSearchActivity.class);
+                intent.putExtra(DataTransition.QUEST, quest);
+                startActivity(intent);
+            }
+        });
     }
 
 }

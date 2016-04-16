@@ -28,7 +28,7 @@
         android:layout_below="@id/textview_finish_title"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/crown"
-        android:src="@drawable/Crown" />
+        android:src="@drawable/crown" />
 
     <TextView
         android:id="@+id/textview_finish_subtitle"

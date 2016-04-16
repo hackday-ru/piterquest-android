@@ -24,6 +24,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ListQuestActivity"/>
         </activity>
+        <activity
+            android:name=".activity.PointSearchActivity">
+        </activity>
     </application>
 
 </manifest>
