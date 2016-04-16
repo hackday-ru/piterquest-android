@@ -17,10 +17,10 @@ import com.piterquest.data.QuestPoint;
 import com.squareup.picasso.Picasso;
 
 public class TaskActivity extends AppCompatActivity {
-    private TextView tvTaskNumber = (TextView) findViewById(R.id.textview_task_number);
-    private TextView tvTaskContent = (TextView) findViewById(R.id.textview_task_content);
-    private ImageView imgTaskImage = (ImageView) findViewById(R.id.image_task);
-    private EditText etAnswer = (EditText) findViewById(R.id.edittext_answer);
+    private TextView tvTaskNumber;
+    private TextView tvTaskContent;
+    private ImageView imgTaskImage;
+    private EditText etAnswer;
 
     private Quest quest;
     private int curPosition;
@@ -31,8 +31,14 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
+        // assigning controls
+        tvTaskNumber = (TextView) findViewById(R.id.textview_task_number);
+        tvTaskContent = (TextView) findViewById(R.id.textview_task_content);
+        imgTaskImage = (ImageView) findViewById(R.id.image_task);
+        etAnswer = (EditText) findViewById(R.id.edittext_answer);
+
         // extracting data from intent sent by QuestPreview
-        Quest quest = getIntent().getParcelableExtra(DataTransition.QUEST);
+        quest = getIntent().getParcelableExtra(DataTransition.QUEST);
         pointsCount = quest.getPoints().size();
 
         // insta-launching PointSearchActivity with the first QuestPoint
