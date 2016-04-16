@@ -50,7 +50,7 @@ public class PointSearchActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(PointSearchActivity.this, MapActivity.class);
-                intent.putExtra(DataTransition.QUEST_POINT, questPoint);
+                intent.putExtra(DataTransition.GPS, questPoint.getGps());
                 startActivity(intent);
             }
         });

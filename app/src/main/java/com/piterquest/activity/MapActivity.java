@@ -1,6 +1,7 @@
 package com.piterquest.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.piterquest.R;
+import com.piterquest.data.QuestPoint;
 
 public class MapActivity extends AppCompatActivity implements
         OnMapReadyCallback,
@@ -43,6 +45,7 @@ public class MapActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
         setContentView(R.layout.map_fragment);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

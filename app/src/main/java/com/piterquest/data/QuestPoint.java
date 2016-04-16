@@ -5,11 +5,12 @@ import android.os.Parcelable;
 
 public class QuestPoint implements Parcelable {
 
-    public QuestPoint(String hintText, String gps, String hintImage,
+    public QuestPoint(String hintText, double dest_lat, double dest_long, String hintImage,
                       boolean hasGpsHint, String taskText, String taskImage,
                       String solution) {
         this.hintText = hintText;
-        this.gps = gps;
+        this.dest_lat = dest_lat;
+        this.dest_long = dest_long;
         this.hintImage = hintImage;
         this.hasGpsHint = hasGpsHint;
         this.taskText = taskText;
@@ -19,7 +20,8 @@ public class QuestPoint implements Parcelable {
 
     private String hintText;
     private String hintImage;
-    private String gps;
+    private double dest_long;
+    private double dest_lat;
     private boolean hasGpsHint;
     private String taskText;
     private String taskImage;
@@ -28,12 +30,14 @@ public class QuestPoint implements Parcelable {
     protected QuestPoint(Parcel in) {
         hintText = in.readString();
         hintImage = in.readString();
-        gps = in.readString();
+        dest_long = in.readDouble();
+        dest_lat  = in.readDouble();
         hasGpsHint = in.readByte() != 0;
         taskText = in.readString();
         taskImage = in.readString();
         solution = in.readString();
     }
+
 
     public static final Creator<QuestPoint> CREATOR = new Creator<QuestPoint>() {
         @Override
@@ -61,14 +65,6 @@ public class QuestPoint implements Parcelable {
 
     public void setHintImage(String hintImage) {
         this.hintImage = hintImage;
-    }
-
-    public String getGps() {
-        return gps;
-    }
-
-    public void setGps(String gps) {
-        this.gps = gps;
     }
 
     public boolean isHasGpsHint() {
@@ -112,10 +108,27 @@ public class QuestPoint implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(hintText);
         dest.writeString(hintImage);
-        dest.writeString(gps);
+        dest.writeDouble(dest_lat);
+        dest.writeDouble(dest_long);
         dest.writeByte((byte) (hasGpsHint ? 1 : 0));
         dest.writeString(taskText);
         dest.writeString(taskImage);
         dest.writeString(solution);
+    }
+
+    public double getDest_long() {
+        return dest_long;
+    }
+
+    public void setDest_long(double dest_long) {
+        this.dest_long = dest_long;
+    }
+
+    public double getDest_lat() {
+        return dest_lat;
+    }
+
+    public void setDest_lat(double dest_lat) {
+        this.dest_lat = dest_lat;
     }
 }
