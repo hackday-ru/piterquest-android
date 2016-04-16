@@ -26,7 +26,7 @@ public class ListQuestActivity extends AppCompatActivity {
         final ArrayList<String> questList = new ArrayList<>();
         Collections.addAll(questList, quests);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, quests);
+                R.layout.row_layout, android.R.id.text1, quests);
         assert questListView != null;
         questListView.setAdapter(adapter);
 
