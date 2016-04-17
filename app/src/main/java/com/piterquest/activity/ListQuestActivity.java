@@ -64,7 +64,7 @@ public class ListQuestActivity extends AppCompatActivity {
         ArrayList<QuestPoint> qList = new ArrayList<>();
         qList.add(new QuestPoint(
                 "Psst, first point is somewhere near you.",
-                "No, u get no coors.",
+                -37.813, 144.962,
                 "https://pixabay.com/static/uploads/photo/2013/11/15/21/41/peter-211139_960_720.jpg",
                 false,
                 "What is the best city on Earth?",
@@ -73,7 +73,7 @@ public class ListQuestActivity extends AppCompatActivity {
         ));
         qList.add(new QuestPoint(
                 "A second point.",
-                "Nope, no coors.",
+                37.4, -122.1,
                 null,
                 false,
                 "What is first letter of alphabet?",

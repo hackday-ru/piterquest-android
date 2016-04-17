@@ -1,5 +1,6 @@
 package com.piterquest.activity;
 
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -21,7 +22,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.piterquest.R;
+import com.piterquest.data.DataTransition;
+import com.piterquest.data.QuestPoint;
 
 public class MapActivity extends AppCompatActivity implements
         OnMapReadyCallback,
@@ -40,6 +44,7 @@ public class MapActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.map_fragment);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -76,7 +81,17 @@ public class MapActivity extends AppCompatActivity implements
             googleMap.setMyLocationEnabled(true);
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
+        Intent intent = getIntent();
+        QuestPoint questPoint = intent.getParcelableExtra(DataTransition.QUEST_POINT);
+        if (questPoint.isHasGpsHint()) {
+            double currentLatitude = questPoint.getDest_lat();
+            double currentLongitude = questPoint.getDest_long();
 
+            LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+            String hint = questPoint.getHintText();
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng).title(hint));
+        }
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         googleMap.setTrafficEnabled(true);
