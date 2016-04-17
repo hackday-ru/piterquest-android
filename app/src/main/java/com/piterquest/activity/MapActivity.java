@@ -1,6 +1,5 @@
 package com.piterquest.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -47,7 +46,6 @@ public class MapActivity extends AppCompatActivity implements
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
-
     public static final String TAG = MapActivity.class.getSimpleName();
 
     @Override
@@ -78,8 +76,7 @@ public class MapActivity extends AppCompatActivity implements
     public void onMapReady(final GoogleMap map) {
         googleMap = map;
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            requestPermissionsIfNeeded();
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                     PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
@@ -154,11 +151,12 @@ public class MapActivity extends AppCompatActivity implements
             mGoogleApiClient.disconnect();
         }
     }
+
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i(TAG, "Location services connected");
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            requestPermissionsIfNeeded();
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
                     PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
@@ -166,19 +164,17 @@ public class MapActivity extends AppCompatActivity implements
                 Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
                 if (location == null) {
                     LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-                }
-                else {
+                } else {
                     handleNewLocation(location);
-                };
+                }
             }
         } else {
             Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (location == null) {
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            }
-            else {
+            } else {
                 handleNewLocation(location);
-            };
+            }
         }
     }
 
@@ -190,6 +186,34 @@ public class MapActivity extends AppCompatActivity implements
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
+    }
+
+    /**
+     * Checks whether the app has permissions to use location.
+     */
+    private boolean hasPermissions() {
+        return (
+                (ContextCompat.checkSelfPermission(
+                        this, android.Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED)
+                        && (ContextCompat.checkSelfPermission(
+                        this, android.Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED)
+        );
+    }
+
+    /**
+     * Checks whether the app has permissions to use location.
+     * If it doesn't, it asks the user for permission.
+     */
+    private void requestPermissionsIfNeeded() {
+        if (hasPermissions()) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{
+                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION
+            }, 0);
+        }
     }
 
     @Override
@@ -208,7 +232,8 @@ public class MapActivity extends AppCompatActivity implements
                 e.printStackTrace();
             }
         } else {
-            Log.i(TAG, "Location services connection failed with code " + connectionResult.getErrorCode());
+            Log.i(TAG, "Location services connection failed with code " +
+                    connectionResult.getErrorCode());
         }
     }
 }
