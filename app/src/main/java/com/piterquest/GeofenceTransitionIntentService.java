@@ -71,12 +71,10 @@ public class GeofenceTransitionIntentService extends IntentService {
     }
 
     private void sendNotification(String geofenceTransitionDetails) {
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, TaskActivity.class), 0);
-        Intent intent = new Intent(this, TaskActivity.class);
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher).setAutoCancel(true)
-                        .setContentTitle("Geofence notification")
+                        .setSmallIcon(R.drawable.ic_launcher).setAutoCancel(true)
+                        .setContentTitle("PiterQuest notification")
                         .setContentText(geofenceTransitionDetails);
 
 
@@ -86,20 +84,12 @@ public class GeofenceTransitionIntentService extends IntentService {
     private String getGeofenceTransitionDetails(int geofenceTransition, List<Geofence> triggeringGeofences) {
         StringBuilder builder = new StringBuilder();
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            builder.append("Entered");
+            builder.append("Good Job! You reached quest point!");
         } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-            builder.append("Exited");
+            builder.append("You left quest point!");
         } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
             builder.append("Dwell");
         }
-
-        List<String> fenceNames = new ArrayList<>();
-        for (Geofence fence : triggeringGeofences) {
-            fenceNames.add(fence.getRequestId());
-        }
-
-        builder.append(" ");
-        builder.append(TextUtils.join(",", fenceNames));
 
         return builder.toString();
     }
