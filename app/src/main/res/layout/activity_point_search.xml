@@ -30,7 +30,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/small_margin"
-        android:onClick="checkLocation"
+        android:onClick="buttonClickCheckLocation"
         android:text="@string/am_i_there_yet"
         android:theme="@style/StartButton" />
 

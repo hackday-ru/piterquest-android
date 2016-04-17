@@ -24,4 +24,6 @@
     <string name="quest_passed">Quest passed!</string>
     <string name="text_about">PiterQuest team:\n* Artyom Sharganov\n* Evgeny Sergeev\n* Kirill Smirenko\n* Mikhail Kita\n* Mikhail Wall\n\nSome images provided by:\nhttps://icons8.com/</string>
     <string name="about">About</string>
+    <string name="cant_work_without_location">The app can\'t work properly without access to location!</string>
+    <string name="no_location_detected">No location detected!</string>
 </resources>

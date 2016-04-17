@@ -56,8 +56,8 @@ public class MapActivity extends AppCompatActivity implements
     private GoogleMap googleMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private ArrayList<Geofence> mGeofenceList;
-    private PendingIntent mGeofencePendingIntent;
+    //private ArrayList<Geofence> mGeofenceList;
+    //private PendingIntent mGeofencePendingIntent;
     public static final String TAG = "TAG";
 
     @Override
@@ -86,7 +86,8 @@ public class MapActivity extends AppCompatActivity implements
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
-        mGeofenceList = new ArrayList<>();
+        // commented out due to stubs in PointSearchActivity
+        /*mGeofenceList = new ArrayList<>();
 
         mGeofenceList.add(new Geofence.Builder()
                 .setRequestId("Destination")
@@ -95,7 +96,7 @@ public class MapActivity extends AppCompatActivity implements
                 .setExpirationDuration(GEOFENCE_EXPIRATION_MS)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
                         Geofence.GEOFENCE_TRANSITION_EXIT)
-                .build());
+                .build());*/
     }
 
     @Override
@@ -113,7 +114,7 @@ public class MapActivity extends AppCompatActivity implements
     private void createGeofenceList() {
 
     }
-    private void onConnectedToPlayServices() {
+    /*private void onConnectedToPlayServices() {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
             requestPermissionsIfNeeded();
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
@@ -127,9 +128,10 @@ public class MapActivity extends AppCompatActivity implements
                 ).setResultCallback(new StatusResultCallback());
             }
         }
-    }
+    }*/
 
-    private GeofencingRequest getGeofencingRequest() {
+    // commented out due to stubs in PointSearchActivity
+    /*private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
         builder.addGeofences(mGeofenceList);
@@ -147,7 +149,7 @@ public class MapActivity extends AppCompatActivity implements
         mGeofencePendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.
                 FLAG_UPDATE_CURRENT);
         return mGeofencePendingIntent;
-    }
+    }*/
 
     private static class StatusResultCallback implements ResultCallback<Status> {
         @Override
@@ -293,7 +295,7 @@ public class MapActivity extends AppCompatActivity implements
      * Checks whether the app has permissions to use location.
      * If it doesn't, it asks the user for permission.
      */
-    private void requestPermissionsIfNeeded() {
+    public void requestPermissionsIfNeeded() {
         if (hasPermissions()) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{
@@ -327,7 +329,7 @@ public class MapActivity extends AppCompatActivity implements
         @Override
         public void onConnected(Bundle bundle) {
             //Log.i(LOG_TAG, "Connection established");
-            MapActivity.this.onConnectedToPlayServices();
+            //MapActivity.this.onConnectedToPlayServices();
         }
 
         @Override
