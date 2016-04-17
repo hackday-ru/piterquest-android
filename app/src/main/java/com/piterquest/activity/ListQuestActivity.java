@@ -64,7 +64,7 @@ public class ListQuestActivity extends AppCompatActivity {
         ArrayList<QuestPoint> qList = new ArrayList<>();
         qList.add(new QuestPoint(
                 "Psst, first point is somewhere near you.",
-                -37.813, 144.962,
+                59.891466, 30.315883,
                 "https://pixabay.com/static/uploads/photo/2013/11/15/21/41/peter-211139_960_720.jpg",
                 true,
                 "What is the best city on Earth?",

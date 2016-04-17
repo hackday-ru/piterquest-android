@@ -1,8 +1,10 @@
 package com.piterquest.activity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +19,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -24,54 +30,130 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.piterquest.GeofenceTransitionIntentService;
 import com.piterquest.R;
 import com.piterquest.data.DataTransition;
 import com.piterquest.data.QuestPoint;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements
         OnMapReadyCallback,
         GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks,
-        LocationListener {
+        LocationListener{
 
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    public static final int REQUEST_CODE = 654;
+    private static final long GEOFENCE_EXPIRATION_MS = 10 * 60 * 1000 ;  // 10 min
 
     private GoogleMap googleMap;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-
-    public static final String TAG = MapActivity.class.getSimpleName();
+    private ArrayList<Geofence> mGeofenceList;
+    private PendingIntent mGeofencePendingIntent;
+    public static final String TAG = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.map_fragment);
+        Intent intent = getIntent();
+        final QuestPoint questPoint = intent.getParcelableExtra(DataTransition.QUEST_POINT);
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(new MyConnectionCallbacks())
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
         // Create the LocationRequest object
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
+        mGeofenceList = new ArrayList<>();
 
+        mGeofenceList.add(new Geofence.Builder()
+                .setRequestId("Destination")
+                .setCircularRegion(questPoint.getDest_lat(), questPoint.getDest_long(),
+                        100)
+                .setExpirationDuration(GEOFENCE_EXPIRATION_MS)
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
+                        Geofence.GEOFENCE_TRANSITION_EXIT)
+                .build());
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGoogleApiClient.disconnect();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    private void createGeofenceList() {
+
+    }
+    private void onConnectedToPlayServices() {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            requestPermissionsIfNeeded();
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                            PackageManager.PERMISSION_GRANTED) {
+                LocationServices.GeofencingApi.addGeofences(
+                        mGoogleApiClient,
+                        getGeofencingRequest(),
+                        getGeofencePendingIntent()
+                ).setResultCallback(new StatusResultCallback());
+            }
+        }
+    }
+
+    private GeofencingRequest getGeofencingRequest() {
+        GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
+        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+        builder.addGeofences(mGeofenceList);
+        return builder.build();
+    }
+
+    private PendingIntent getGeofencePendingIntent() {
+        // Reuse the PendingIntent if we already have it.
+        if (mGeofencePendingIntent != null) {
+            return mGeofencePendingIntent;
+        }
+        Intent intent = new Intent(this, GeofenceTransitionIntentService.class);
+        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
+        // calling addGeofences() and removeGeofences().
+        mGeofencePendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.
+                FLAG_UPDATE_CURRENT);
+        return mGeofencePendingIntent;
+    }
+
+    private static class StatusResultCallback implements ResultCallback<Status> {
+        @Override
+        public void onResult(Status status) {
+        }
+    }
     @Override
     public void onMapReady(final GoogleMap map) {
         googleMap = map;
@@ -97,7 +179,6 @@ public class MapActivity extends AppCompatActivity implements
             @Override
             public View getInfoWindow(Marker marker) {
                 View view = getLayoutInflater().inflate(R.layout.custom_info_window, null);
-                LatLng latLng = marker.getPosition();
                 TextView hintTextView = (TextView) view.findViewById(R.id.hint_text);
                 ImageView imageHintView = (ImageView) view.findViewById(R.id.hint_image);
 
@@ -125,9 +206,15 @@ public class MapActivity extends AppCompatActivity implements
             double currentLongitude = questPoint.getDest_long();
 
             LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-            String hint = questPoint.getHintText();
             googleMap.addMarker(new MarkerOptions()
-                    .position(latLng).title(hint));
+                    .position(latLng));
+            CircleOptions circleOptions = new CircleOptions()
+                    .center(latLng)
+                    .radius(100)
+                    .fillColor(0x40ff0000)
+                    .strokeColor(Color.TRANSPARENT)
+                    .strokeWidth(2);
+            googleMap.addCircle(circleOptions);
         }
 
     }
@@ -234,6 +321,18 @@ public class MapActivity extends AppCompatActivity implements
         } else {
             Log.i(TAG, "Location services connection failed with code " +
                     connectionResult.getErrorCode());
+        }
+    }
+    private class MyConnectionCallbacks implements GoogleApiClient.ConnectionCallbacks {
+        @Override
+        public void onConnected(Bundle bundle) {
+            //Log.i(LOG_TAG, "Connection established");
+            MapActivity.this.onConnectedToPlayServices();
+        }
+
+        @Override
+        public void onConnectionSuspended(int i) {
+            //Log.e(LOG_TAG, "Connection suspended");
         }
     }
 }
