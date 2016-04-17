@@ -10,6 +10,6 @@
 
     <style name="StartButton" parent="Theme.AppCompat.Light">
         <item name="colorButtonNormal">@color/colorBlue</item>
+        <item name="android:textColor">@color/white</item>
     </style>
-
 </resources>

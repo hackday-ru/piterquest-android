@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="fill"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="@color/colorText"
                 android:textSize="@dimen/main_text_size" />
 
         </LinearLayout>
@@ -48,6 +48,6 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/standard_margin"
         android:text="@string/start_button_text"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorButtonText"
         android:theme="@style/StartButton" />
 </RelativeLayout>

@@ -20,6 +20,7 @@
         android:layout_marginTop="@dimen/standard_margin"
         android:ellipsize="none"
         android:scrollHorizontally="false"
+        android:textColor="@color/colorText"
         android:textSize="22sp" />
 
     <Button

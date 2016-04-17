@@ -1,10 +1,7 @@
 <resources>
-    <string name="app_name">PiterQuest</string>
+    <string name="app_name" translatable="false">PiterQuest</string>
     <string name="find_next_point">Find the next point!</string>
     <string name="hint_image">hint image</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="start_button_text">Start</string>
     <string name="task_number">Task</string>
@@ -12,16 +9,19 @@
     <string name="your_answer">Your answer</string>
     <string name="congrats">Congratulations!</string>
     <string name="you_are_awesome">You are awesome!</string>
-    <string name="completed_quest">You have completed the quest</string>
+    <string name="you_have_completed">You have completed</string>
     <string name="to_menu">Back to menu</string>
     <string name="crown">crown</string>
-    <string name="error_permission_map">Error permission map</string>
+    <string name="error_permission_map" translatable="false">Error permission map</string>
     <string name="quest_image">quest image</string>
     <string name="am_i_there_yet">Am I there yet?</string>
     <string name="open_map">Open map</string>
     <string name="not_there_yet">You are not there yet!</string>
     <string name="wrong_answer">Oops, try again</string>
-    <string name="quest_abort_popup">Are you sure you want to abort the quest? All progress will be lost.</string>
+    <string name="quest_abort_popup">If you abort the quest, all progress will be lost.</string>
     <string name="abort">Abort</string>
     <string name="cancel">Cancel</string>
+    <string name="quest_passed">Quest passed!</string>
+    <string name="text_about">PiterQuest team:\n* Artyom Sharganov\n* Evgeny Sergeev\n* Kirill Smirenko\n* Mikhail Kita\n* Mikhail Wall\n\nSome images provided by:\nhttps://icons8.com/</string>
+    <string name="about">About</string>
 </resources>

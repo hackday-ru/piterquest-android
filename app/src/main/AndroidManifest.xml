@@ -32,7 +32,10 @@
         <activity
             android:name=".activity.TaskActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.FinishActivity" />
+        <activity
+            android:name=".activity.FinishActivity"
+            android:label="@string/quest_passed"
+            android:launchMode="singleTop" />
         <activity
             android:name=".activity.QuestPreviewActivity"
             android:parentActivityName=".activity.ListQuestActivity">
