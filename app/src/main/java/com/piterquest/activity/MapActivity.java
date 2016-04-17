@@ -11,6 +11,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -23,10 +26,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.piterquest.R;
 import com.piterquest.data.DataTransition;
 import com.piterquest.data.QuestPoint;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 public class MapActivity extends AppCompatActivity implements
         OnMapReadyCallback,
@@ -63,10 +70,12 @@ public class MapActivity extends AppCompatActivity implements
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
+
     }
 
     @Override
-    public void onMapReady(GoogleMap map) {
+    public void onMapReady(final GoogleMap map) {
         googleMap = map;
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
 
@@ -85,7 +94,35 @@ public class MapActivity extends AppCompatActivity implements
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
         Intent intent = getIntent();
-        QuestPoint questPoint = intent.getParcelableExtra(DataTransition.QUEST_POINT);
+        final QuestPoint questPoint = intent.getParcelableExtra(DataTransition.QUEST_POINT);
+
+        googleMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                View view = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+                LatLng latLng = marker.getPosition();
+                TextView hintTextView = (TextView) view.findViewById(R.id.hint_text);
+                ImageView imageHintView = (ImageView) view.findViewById(R.id.hint_image);
+
+                hintTextView.setText(questPoint.getHintText());
+                Picasso.with(MapActivity.this).load(questPoint.getHintImage())
+                        .into(imageHintView);
+
+                return view;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                return null;
+            }
+        });
+
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        googleMap.setTrafficEnabled(true);
+        googleMap.setIndoorEnabled(true);
+        googleMap.setBuildingsEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
         if (questPoint.isHasGpsHint()) {
             double currentLatitude = questPoint.getDest_lat();
             double currentLongitude = questPoint.getDest_long();
@@ -95,12 +132,7 @@ public class MapActivity extends AppCompatActivity implements
             googleMap.addMarker(new MarkerOptions()
                     .position(latLng).title(hint));
         }
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        googleMap.setTrafficEnabled(true);
-        googleMap.setIndoorEnabled(true);
-        googleMap.setBuildingsEnabled(true);
-        googleMap.getUiSettings().setZoomControlsEnabled(true);
     }
 
     @Override

@@ -66,7 +66,7 @@ public class ListQuestActivity extends AppCompatActivity {
                 "Psst, first point is somewhere near you.",
                 -37.813, 144.962,
                 "https://pixabay.com/static/uploads/photo/2013/11/15/21/41/peter-211139_960_720.jpg",
-                false,
+                true,
                 "What is the best city on Earth?",
                 null,
                 "Piter"
