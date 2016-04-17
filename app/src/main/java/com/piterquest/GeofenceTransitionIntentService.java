@@ -2,22 +2,17 @@ package com.piterquest;
 
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
-import com.piterquest.activity.MapActivity;
 import com.piterquest.activity.TaskActivity;
-import com.piterquest.data.DataTransition;
-import com.piterquest.data.QuestPoint;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,8 +77,7 @@ public class GeofenceTransitionIntentService extends IntentService {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher).setAutoCancel(true)
                         .setContentTitle("Geofence notification")
-                        .setContentText(geofenceTransitionDetails)
-                        .setContentIntent(pendingIntent);
+                        .setContentText(geofenceTransitionDetails);
 
 
         mNotificationManager.notify(NOTIFICATION_ID, builder.build());

@@ -121,6 +121,12 @@ public class MapActivity extends AppCompatActivity implements
                         getGeofencingRequest(),
                         getGeofencePendingIntent()
                 ).setResultCallback(new StatusResultCallback());
+            } else {
+                LocationServices.GeofencingApi.addGeofences(
+                        mGoogleApiClient,
+                        getGeofencingRequest(),
+                        getGeofencePendingIntent()
+                ).setResultCallback(new StatusResultCallback());
             }
         }
     }
