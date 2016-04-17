@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.piterquest.R;
 import com.piterquest.data.DataTransition;
 import com.piterquest.data.Quest;
+import com.squareup.picasso.Picasso;
 
 public class QuestPreviewActivity extends AppCompatActivity {
     @Override
@@ -35,7 +36,8 @@ public class QuestPreviewActivity extends AppCompatActivity {
 
         String description = quest.getInfo().getDescription();
         descriptionQuestView.setText(description);
-        imageQuestionView.setImageResource(R.drawable.placeholder);
+        Picasso.with(QuestPreviewActivity.this).load(quest.getInfo().getImage()).into(imageQuestionView);
+
 
         final Button button = (Button) findViewById(R.id.start_button);
         assert button != null;
