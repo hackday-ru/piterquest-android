@@ -86,12 +86,15 @@ public class MapActivity extends AppCompatActivity implements
         }
         Intent intent = getIntent();
         QuestPoint questPoint = intent.getParcelableExtra(DataTransition.QUEST_POINT);
-        double currentLatitude = questPoint.getDest_lat();
-        double currentLongitude = questPoint.getDest_long();
+        if (questPoint.isHasGpsHint()) {
+            double currentLatitude = questPoint.getDest_lat();
+            double currentLongitude = questPoint.getDest_long();
 
-        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-        googleMap.addMarker(new MarkerOptions()
-                .position(latLng).title("target"));
+            LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+            String hint = questPoint.getHintText();
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng).title(hint));
+        }
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         googleMap.setTrafficEnabled(true);
