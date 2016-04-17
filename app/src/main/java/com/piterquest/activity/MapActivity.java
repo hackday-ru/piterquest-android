@@ -289,7 +289,7 @@ public class MapActivity extends AppCompatActivity implements
      * Checks whether the app has permissions to use location.
      * If it doesn't, it asks the user for permission.
      */
-    private void requestPermissionsIfNeeded() {
+    public void requestPermissionsIfNeeded() {
         if (hasPermissions()) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{
