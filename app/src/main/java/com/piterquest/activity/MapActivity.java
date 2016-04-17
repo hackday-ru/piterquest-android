@@ -46,8 +46,7 @@ public class MapActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        QuestPoint questPoint = intent.getParcelableExtra(DataTransition.QUEST_POINT);
+
         setContentView(R.layout.map_fragment);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -85,7 +84,14 @@ public class MapActivity extends AppCompatActivity implements
             googleMap.setMyLocationEnabled(true);
             googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         }
+        Intent intent = getIntent();
+        QuestPoint questPoint = intent.getParcelableExtra(DataTransition.QUEST_POINT);
+        double currentLatitude = questPoint.getDest_lat();
+        double currentLongitude = questPoint.getDest_long();
 
+        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+        googleMap.addMarker(new MarkerOptions()
+                .position(latLng).title("target"));
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         googleMap.setTrafficEnabled(true);
