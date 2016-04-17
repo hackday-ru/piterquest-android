@@ -1,11 +1,18 @@
 package com.piterquest.activity;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.piterquest.R;
@@ -41,6 +48,39 @@ public class ListQuestActivity extends AppCompatActivity {
                 questSelected(quest);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_quest_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_about:
+                showAboutDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showAboutDialog() {
+        final SpannableString s = new SpannableString(getString(R.string.text_about));
+        Linkify.addLinks(s, Linkify.ALL);
+
+        final AlertDialog d = new AlertDialog.Builder(ListQuestActivity.this)
+                .setPositiveButton(android.R.string.ok, null)
+                .setMessage(s)
+                .create();
+        d.show();
+
+        TextView tvMessage = (TextView) d.findViewById(android.R.id.message);
+        if (tvMessage != null) {
+            tvMessage.setMovementMethod(LinkMovementMethod.getInstance());
+        }
     }
 
     private void questSelected(Quest quest) {

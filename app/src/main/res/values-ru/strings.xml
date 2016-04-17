@@ -20,4 +20,6 @@
     <string name="you_are_awesome">Вы восхитительны!</string>
     <string name="you_have_completed">Вы успешно прошли</string>
     <string name="your_answer">Ваш ответ</string>
+    <string name="text_about">Команда PiterQuest:\n* Артём Шарганов\n* Евгений Сергеев\n* Кирилл Смиренко\n* Михаил Валл\n* Михаил Кита\n\nЧасть изображений предоставлена:\nhttps://icons8.com/</string>
+    <string name="about">О проекте</string>
 </resources>

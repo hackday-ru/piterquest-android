@@ -22,4 +22,6 @@
     <string name="abort">Abort</string>
     <string name="cancel">Cancel</string>
     <string name="quest_passed">Quest passed!</string>
+    <string name="text_about">PiterQuest team:\n* Artyom Sharganov\n* Evgeny Sergeev\n* Kirill Smirenko\n* Mikhail Kita\n* Mikhail Wall\n\nSome images provided by:\nhttps://icons8.com/</string>
+    <string name="about">About</string>
 </resources>
