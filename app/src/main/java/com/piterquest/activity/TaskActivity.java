@@ -2,11 +2,13 @@ package com.piterquest.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -96,6 +98,21 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            tryAbort();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        tryAbort();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DataTransition.REQUEST_CODE_HINT && resultCode == Activity.RESULT_OK) {
@@ -113,5 +130,9 @@ public class TaskActivity extends AppCompatActivity {
         } else {
             Toast.makeText(TaskActivity.this, R.string.wrong_answer, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void tryAbort() {
+        QuestAbortPopup.createAndShow(TaskActivity.this);
     }
 }

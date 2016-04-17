@@ -22,6 +22,11 @@ public class FinishActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        backToQuestList(null);
+    }
+
     public void backToQuestList(View view) {
         Intent intent = new Intent(getApplicationContext(), ListQuestActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

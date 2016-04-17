@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,12 +36,18 @@ public class PointSearchActivity extends AppCompatActivity {
         final TextView tvHint = (TextView) findViewById(R.id.textview_point_hint);
         final ImageView imgHint = (ImageView) findViewById(R.id.image_point_hint);
 
-        // extracting data from intent sent by Task and setting up header
-        Intent intent = getIntent();
-        questPoint = intent.getParcelableExtra(DataTransition.QUEST_POINT);
+        if (savedInstanceState == null) {
+            // extracting data from intent sent by Task and setting up header
+            Intent intent = getIntent();
+            questPoint = intent.getParcelableExtra(DataTransition.QUEST_POINT);
+        }
+        else {
+            // extracting data from saved instance state
+            questPoint = savedInstanceState.getParcelable(DataTransition.QUEST_POINT);
+        }
 
         // setting up controls
-        if (tvHint != null) {
+        if (tvHint != null && questPoint != null) {
             tvHint.setText(questPoint.getHintText());
         }
         Picasso.with(PointSearchActivity.this).load(questPoint.getHintImage()).into(imgHint);
@@ -54,6 +61,31 @@ public class PointSearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(DataTransition.QUEST_POINT, questPoint);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle inState) {
+        questPoint = inState.getParcelable(DataTransition.QUEST_POINT);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            tryAbort();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        tryAbort();
     }
 
     /**
@@ -73,5 +105,9 @@ public class PointSearchActivity extends AppCompatActivity {
                     .show();
             ++clickCount;
         }
+    }
+
+    private void tryAbort() {
+        QuestAbortPopup.createAndShow(PointSearchActivity.this);
     }
 }

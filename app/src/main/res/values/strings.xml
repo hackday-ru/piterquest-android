@@ -21,4 +21,7 @@
     <string name="open_map">Open map</string>
     <string name="not_there_yet">You are not there yet!</string>
     <string name="wrong_answer">Oops, try again</string>
+    <string name="quest_abort_popup">Are you sure you want to abort the quest? All progress will be lost.</string>
+    <string name="abort">Abort</string>
+    <string name="cancel">Cancel</string>
 </resources>
