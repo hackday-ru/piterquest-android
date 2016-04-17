@@ -31,7 +31,13 @@
         </activity>
         <activity
             android:name=".activity.TaskActivity"
-            android:launchMode="singleTop" />
+            android:parentActivityName=".activity.MapActivity"
+            android:launchMode="singleTop" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MapActivity"/>
+        </activity>
+
         <activity
             android:name=".activity.FinishActivity"
             android:label="@string/quest_passed"
@@ -50,9 +56,6 @@
         <activity
             android:name=".activity.MapActivity"
             android:parentActivityName=".activity.PointSearchActivity">
-            <meta-data
-                android:name=".android.support.PARENT_ACTIVITY"
-                android:value=".activity.PointSearchActivity" />
 
         </activity>
 

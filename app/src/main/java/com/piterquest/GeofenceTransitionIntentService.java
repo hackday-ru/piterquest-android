@@ -2,14 +2,22 @@ package com.piterquest;
 
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
+import com.piterquest.activity.MapActivity;
+import com.piterquest.activity.TaskActivity;
+import com.piterquest.data.DataTransition;
+import com.piterquest.data.QuestPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +26,7 @@ public class GeofenceTransitionIntentService extends IntentService {
     private static final String LOG_TAG = GeofenceTransitionIntentService.class.getName();
     private static final int NOTIFICATION_ID = 2358;
     private NotificationManager mNotificationManager;
-
+    private String msgFromActivity;
     public GeofenceTransitionIntentService() {
         super("GeofenceTransitionIntentService");
     }
@@ -37,7 +45,6 @@ public class GeofenceTransitionIntentService extends IntentService {
 
             GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
             if (geofencingEvent.hasError()) {
-
                 return;
             }
 
@@ -69,12 +76,15 @@ public class GeofenceTransitionIntentService extends IntentService {
     }
 
     private void sendNotification(String geofenceTransitionDetails) {
-
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, TaskActivity.class), 0);
+        Intent intent = new Intent(this, TaskActivity.class);
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher).setAutoCancel(true)
                         .setContentTitle("Geofence notification")
-                        .setContentText(geofenceTransitionDetails);
+                        .setContentText(geofenceTransitionDetails)
+                        .setContentIntent(pendingIntent);
+
 
         mNotificationManager.notify(NOTIFICATION_ID, builder.build());
     }

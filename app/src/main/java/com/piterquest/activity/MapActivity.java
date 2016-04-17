@@ -41,7 +41,6 @@ import com.piterquest.data.QuestPoint;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements
         OnMapReadyCallback,
@@ -91,7 +90,7 @@ public class MapActivity extends AppCompatActivity implements
         mGeofenceList.add(new Geofence.Builder()
                 .setRequestId("Destination")
                 .setCircularRegion(questPoint.getDest_lat(), questPoint.getDest_long(),
-                        100)
+                        10000)
                 .setExpirationDuration(GEOFENCE_EXPIRATION_MS)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
                         Geofence.GEOFENCE_TRANSITION_EXIT)
@@ -110,9 +109,6 @@ public class MapActivity extends AppCompatActivity implements
         mGoogleApiClient.connect();
     }
 
-    private void createGeofenceList() {
-
-    }
     private void onConnectedToPlayServices() {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
             requestPermissionsIfNeeded();
