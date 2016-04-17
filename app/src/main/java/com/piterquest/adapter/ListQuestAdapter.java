@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.piterquest.R;
 import com.piterquest.data.Quest;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -54,11 +55,11 @@ public class ListQuestAdapter extends BaseAdapter {
 
         nameTextView.setText(item.getInfo().getName());
         infoTextView.setText(item.getInfo().getDescription());
-        questImageView.setImageResource(R.drawable.placeholder);
-//        Picasso.with(activity.getApplicationContext()).load(item.getInfo().getImage())
-//                .error(R.drawable.placeholder)
-//                .placeholder(R.drawable.placeholder)
-//                .into(questImageView);
+        //questImageView.setImageResource(R.drawable.placeholder);
+        Picasso.with(activity.getApplicationContext()).load(item.getInfo().getImage())
+                .error(R.drawable.placeholder)
+                .placeholder(R.drawable.placeholder)
+                .into(questImageView);
 
         return convertView;
     }
